@@ -1,0 +1,400 @@
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: background .2s;
+    -moz-transition: background .2s;
+    -ms-transition: background .2s;
+    -o-transition: background .2s;
+    transition: background .2s;
+    outline: 0;
+}
+
+h1,ul,li{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+input, button { padding-top:0; padding-bottom:0; font-family: "sans-serif";border:0;}
+select, input, button { vertical-align:middle; }
+
+body {
+    font-family: "sans-serif";
+    background: #f5f5f5;
+    color: #666;
+    font-size: 12px;
+}
+
+/*top部分开始*/
+.top{
+    width: 100%;
+    background-color: #2197f1;
+}
+
+.top h1{
+    position: relative;
+    margin: 0 auto;
+    padding: 0 10px 0 10px;
+    max-width: 970px;
+    width: 100%;
+    font-size: 20px;
+    line-height: 60px;
+    color: #fff;
+}
+
+.insert-item{
+    position: absolute;
+    display: inline-block;
+    top: 50%;
+    right: 10px;
+    margin-top: -20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.insert-item .lineT,
+.insert-item .lineV{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -3px;
+    margin-left: -15px;
+    width: 30px;
+    height: 6px;
+    border-radius: 3px;
+    background-color: #2197f1;
+
+}
+
+.insert-item .lineV{
+    margin-top: -15px;
+    margin-left: -3px;
+    width: 6px;
+    height: 30px;
+}
+
+/*top结束*/
+
+/*search 开始*/
+.search-wrap{
+    width: 100%;
+    background-color: #fff;
+}
+
+.search{
+    margin: 0 auto;
+    padding: 0 10px;
+    max-width: 970px;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    /*background-color: pink;*/
+}
+
+.search-time{
+    float: left;
+    width: 30%;
+    min-width: 140px;
+    height: 60px;
+    line-height: 60px;
+    background-color: #fff;
+}
+
+.search-time-start,
+.search-time-end{
+    display: inline-block;
+    vertical-align:middle;
+    width: 41%;
+    min-width: 55px;
+    height: 33px;
+    font-size: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.search-time .line{
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 3px;
+    width: 5%;
+    border-top: 1px solid #999;
+}
+
+.search-timeslot{
+    float: left;
+    width: 25%;
+    /*height: 60px;*/
+    line-height: 60px;
+    background: #fff;
+}
+
+.search-timeslot li{
+    width: 33.3%;
+    float: left;
+}
+
+.search-timeslot li input{
+    display: inline-block;
+    vertical-align:middle;
+    margin-right: 10px;
+    width: 90%;
+    /*height: 35px;*/
+    line-height: 30px;
+    background-color: #fff;
+    border: 1px solid #2197f1;
+    border-radius: 3px;
+    color: #2197f1;
+    cursor: pointer;
+}
+
+.search-timeslot li input:hover,
+.search-timeslot li input.current{
+    background-color: #2197f1;
+    color: #fff;
+}
+
+@media screen and (max-width: 640px){
+    .search-timeslot{
+        display: none;
+    }
+}
+.search-type{
+    vertical-align: middle;
+    margin-left: 10px;
+    width: 10%;
+    min-width: 70px;
+    height: 33px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.search-submitwrap{
+    width: 10%;
+    min-width: 50px;
+    float: right;
+}
+
+.search-submit{
+    /*float: left;*/
+    display: inline-block;
+    /* margin-right: 10px; */
+    vertical-align:middle;
+    width: 100%;
+    height: 33px;
+    background-color: #2197f1;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer; 
+}
+/*search结束*/
+
+/*Ana开始*/
+.ana{
+    margin: 0 auto;
+    padding: 0 10px;
+    max-width: 970px;
+    width: 100%;
+    height: 50px;
+ /*   background-color: pink;*/
+    overflow: hidden;
+}
+
+.ana-pro{
+    float: left;
+    margin-top: 10px;
+    width: 70%;
+    height: 30px;
+/*    background-color: black;*/
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.ana-pro-left,
+.ana-pro-right{
+    float: left;
+    display: inline-block;
+    width: 0%;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background: url(../image/proLeft.png)  repeat-x;
+    color: #fff;
+    transition: width 1.5s;
+}
+
+.ana-pro-right{
+    float: right;
+    /*width: 63%;*/
+    background-color: green;
+    background: url(../image/proRight.png)  repeat-x;
+}
+
+.ana-btn{
+    float: right;
+    margin-top: 8px;
+    width: 10%;
+    min-width: 60px;
+    height: 33px;
+    background-color: #2197f1;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+}
+/*Ana结束*/
+
+/*item-list开始*/
+.item-list{
+    margin: 0 auto;
+    max-width: 970px;
+    width: 100%;
+}
+
+.item{
+    position: relative;
+    margin-bottom: 2px;
+    padding: 0 10px;
+    width: 100%;
+    height: 36px;
+    line-height: 36px;
+    border-radius: 3px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.item:hover{
+    background-color: #EEE;
+}
+
+.item-num{
+    display: inline-block;
+    width: 88px;
+}
+
+.income{
+    color: #e85353;
+}
+
+.expend{
+    color: #03c087;
+}
+
+.item-del-btn,
+.item-detail-btn{
+    float: right;
+    color: #999;
+}
+
+.item-del-btn:hover,
+.item-detail-btn:hover{
+    color: #666;
+}
+
+.item-detail-btn{
+    margin-right: 8px;
+}
+
+
+
+
+
+.kui{
+    color: #03c087;
+}
+
+.mask{
+    display: none;
+    position: fixed; 
+    background: rgba(0, 0, 0, 0.5); 
+    top: 0px;
+    bottom: 0px; 
+    left: 0px; 
+    right: 0px;
+}
+
+
+
+.detail{
+    /*display: none;*/
+    margin: 0 auto;
+    padding: 10px;
+    width: 300px;
+    height: 320px;
+    background-color: #fff;
+    border: 1px solid #DDD;
+    border-radius: 3px;
+}
+
+.detail-title,
+.detail-type,
+.detail-cat,
+.detail-time,
+.detail-num,
+.detail-remark{
+    height: 30px;
+    line-height: 30px;
+    margin-bottom: 5px;
+}
+
+.detail-title span,
+.detail-type span,
+.detail-cat span,
+.detail-time span,
+.detail-num span,
+.detail-remark span{
+    float: left;
+}
+.detail-title input,
+.detail-cat select,
+.detail-time input,
+.detail-num input,
+.detail-remark textarea,
+#inset-cat{
+    float: left;
+    display: inline-block;
+    margin-left: 10px;
+    width: 230px;
+    height: 30px;
+/*    background-color: #DDD;*/
+    border: 1px solid #DDD;
+    border-radius: 3px;
+}
+
+.detail-type input{
+    margin-left: 10px;
+}
+
+.detail-cat select{
+    width: 150px;
+}
+
+.detail-cat .detail-cat-btn1,
+.detail-cat .detail-cat-btn2{
+    float: right;
+    display: inline-block;
+    color: #2197f1;
+    cursor: pointer;
+}
+
+.detail-remark{
+    height: 70px;
+    line-height: 70px;
+}
+
+.detail-remark textarea{
+    width: 230px;
+    height: 70px;
+}
+
+.detail-btn{
+    width: 110px;
+    height: 35px;
+    background-color: #2197f1;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<meta charset="utf-8">
+	 <meta name="viewport" content="width=device-width", initial-scale=1.0, user-scalable=0>
+     <link rel="stylesheet" type="text/css" href="node_modules/normalize.css/normalize.css">
+	 <link rel="stylesheet" href="node_modules/jquery-datetimepicker/build/jquery.datetimepicker.min.css">	
+	 <link rel="stylesheet" type="text/css" href="css/base.css">
+</head>
+<body>
+<div class="top"> <!-- top容器开始 -->
+	<h1>
+		记不得记账本
+		<span class="insert-item"> <!-- 添加按钮  -->
+			<s class="lineT"></s>
+			<s class="lineV"></s>
+		</span>
+	</h1>
+</div> <!-- top容器结束  -->
+
+<div class="search-wrap"> <!-- search 容器开始 -->
+	<div class="search">
+		<form id="search_items">
+			<div class="search-time"> <!-- 搜索时间容器开始 -->
+				<input id='time_start' class="datetime search-time-start" value="****-**-**"  name="time_start" type="text" >
+				<span class="line"></span>
+				<input id='time_end' class="datetime search-time-end" value="****-**-**"  name="time_end" type="text" >
+			</div> <!-- 搜索容器结束 -->
+			<ul class="search-timeslot"> <!-- 时间段选择开始 -->
+				<li><input id="one_day_time" type="button" value="当日" name=""></li>
+				<li><input id="one_month_time" type="button" value="本月" name=""></li>
+				<li><input id="all_time" class="current" type="button" value="所有" name=""></li>
+			</ul> <!-- 时间段选择结束 -->
+			<select class="search-type" name="search-type"> <!-- 类型选择开始 -->
+				<option value="9999">所有分类:</option>
+			</select> <!-- 类型选择结束 -->
+			<div class="search-submitwrap">
+				<button type="submit" class="search-submit">查询</button>
+			</div>
+		</form>
+	</div>	
+</div> <!-- search容器结束  -->
+
+<div class="ana"> <!-- 收支分析容器开始 -->
+	<div class="ana-pro"> <!-- 进度条容器开始 -->
+		<span class="ana-pro-left"></span>
+		<span class="ana-pro-right"></span>
+	</div>
+	<input class="ana-btn" type="button" value="资金分析" name="">
+</div> <!-- 收支分析容器结束 -->
+
+<ul class="item-list"> <!-- item容器开始 -->
+</ul> <!-- item容器结束 -->
+
+
+
+<div class="mask"></div>
+
+<!-- 模板解析文件 -->
+<script src="node_modules/art-template/lib/template-web.js"></script>
+<!-- item模板 -->
+<script id="item-tmpl" type="text/x-art-html">
+	<li class="item" data-index="{{index}}">
+		<span class="item-num {{if type}}income{{else}}expend{{/if}}">{{num}}</span>
+		<span class="item-name">{{title}}</span>
+		<span class="item-del-btn">删除</span>
+		<span class="item-detail-btn">更新</span>
+	</li>
+</script>
+
+<!-- 增加/更新Item 模板 -->
+<script id="detail" type="text/x-art-html">
+	<form class="detail">
+		<div class="detail-title">
+			<span>标题:</span>
+			<input type="text" value="{{title}}" name="title" />
+		</div>
+		<div class="detail-type">
+			<span>类型:</span>
+			<input type="radio" name="type" value="1">收入
+			<input type="radio" name="type" value="0">支出
+		</div>
+		<div class="detail-cat">
+			<div>
+				<span>分类:</span>
+				<select name="cat">
+					<option value="9999">选择分类:</option>
+					{{each cats}}
+						<option value="{{$index}}">{{$value}}</option>
+					{{/each}}
+				</select>
+				<span class="detail-cat-btn1">新增分类</span>
+			</div>
+			<div style="display:none">
+				<input id="inset-cat" type="text" value="" name="" />
+				<span class="detail-cat-btn2">确定</span>
+			</div>
+		</div>
+		<div class="detail-time">
+			<span>时间:</span>
+			<input type="text" class="datetime" value="{{time}}" name="time" />
+		</div>
+		<div class="detail-num">
+			<span>金额:</span>
+			<input  type="text" value="{{num}}" name="num" />
+		</div>
+		<div class="detail-remark">
+			<span>备注:</span>
+			<textarea name="remark">{{remark}}</textarea>
+		</div>
+		<button class="detail-btn" type="submit">更 新</button>
+	</form>
+</script>
+
+<script src="node_modules/jquery/dist/jquery.js"></script>
+<script src="node_modules/jquery-datetimepicker/build/jquery.datetimepicker.full.js"></script>
+<script src="node_modules/storejs/dist/store.js"></script>
+<script src="js/class.js"></script>
+<script src="js/base.js"></script>
+</body>
+</html>

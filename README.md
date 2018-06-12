@@ -1,0 +1,2 @@
+一个简单的web记账本
+npm install 即可运行项目
