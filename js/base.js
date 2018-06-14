@@ -1,13 +1,5 @@
 'use strict'
 
-//初始化时间Input
-function initTimeInput(ele) {
-	ele.datetimepicker({	
-		format:"Y-m-d",	//格式化事件
-		timepicker:false	//取消时间选项
-	});
-}
-
 //时间转换函数 当参数是字符串转换为时间戳 参数为数字转换为字符串
 function transTime(time) {
 	if (typeof time == 'string') {
@@ -19,6 +11,51 @@ function transTime(time) {
 	var month = (date.getMonth() + 1) >= 10 ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1));
 	var day = date.getDate() >= 10 ? date.getDate() : '0' + date.getDate();
 	return year + '-' + month + '-' + day;
+}
+
+// 表单验证函数
+function checkFormData (data) {
+	var dreg = /^[\d]+$/;
+	var treg = /^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
+	// 表单验证标志默认为正确
+	var flag = true;
+	$.each(data, function (i, v) {
+		switch(data[i].name){
+			case 'cat':	// 判断分类是否为数字， 9999是没有选择的默认值
+				if (data[i].value == '9999' || !dreg.test(data[i].value)) {
+					//console.log(111)
+					flag = false;
+				}
+				break;
+			case 'type':	// 判断账目类型是否为0或者1
+				if (data[i].value != '1' && data[i].value != '0'){
+					flag = false;
+				}	
+				break;
+			case 'num':	// 判断金额是否为数字
+				if (!dreg.test(data[i].value)) {
+					flag = false;
+				}
+				break;
+			case 'time':	// 判断时间格式是否正确
+				if (!treg.test(data[i].value)) {
+					flag = false;
+				}
+				break;
+			default:
+				break;
+		}	
+	})
+	// 如果都验证通过返回正确
+	return flag;
+}
+
+//初始化时间Input
+function initTimeInput(ele) {
+	ele.datetimepicker({	
+		format:"Y-m-d",	//格式化事件
+		timepicker:false	//取消时间选项
+	});
 }
 
 
@@ -115,7 +152,12 @@ function onInsertCat ($detail) {
 	 	$(this).parent().hide().end().parent().next().show();
 	 }).on('click', '.detail-cat-btn2', function() {
 		 //更新数据中的cats
-	 	var cats = (store.get('cats') || []).concat($(this).prev().val());
+		var cat = $(this).prev().val().trim();
+		if (cat == '') {	// 判断添加的分类是否为空
+			alert('不能为空');
+			return
+		}
+	 	var cats = (store.get('cats') || []).concat(cat);
 	 	store.set('cats', cats);
 	 	//更新界面中cats
 	 	var html = '<option>选择分类:</option>';

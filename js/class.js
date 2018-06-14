@@ -53,7 +53,12 @@
 
 		updateItem: function(data) {	//更新数据
 				var item = {};	
-     		 	var dreg = /^[\d]+$/;	//判断是否都为数字的正则
+				var dreg = /^[\d]+$/;	//判断是否都为数字的正则
+				// 验证表单数据，如果验证不通过退出函数
+				if(!checkFormData(data)) {
+					alert('填写错误，请检查输入');
+					return false;
+				}  
      		 	$.each(data, function(i, v) {	//遍历表单值，为对象和数据库更新
      		 		if (dreg.test(v.value)) {	//判断是否为纯数字字符串
      		 			this[v.name] = parseInt(v.value);	//更新对象中的数据
@@ -164,7 +169,12 @@
 		insertItem: function(data) {	//添加item
 			//console.log(data);
 			var item = {};	
- 		 	var dreg = /^[\d]+$/;	//判断是否都为数字的正则
+			var dreg = /^[\d]+$/;	//判断是否都为数字的正则
+			// 验证表单数据，如果验证不通过退出函数
+			if(!checkFormData(data)) {
+				alert('填写错误，请检查输入');
+				return false;
+			} 
  		 	$.each(data, function(i, v) {	//遍历表单值，为对象和数据库更新
  		 		if (dreg.test(v.value)) {	//判断是否为纯数字字符串
  		 			item[v.name] = parseInt(v.value);
@@ -292,12 +302,12 @@
 		//绘制饼图
 		drawPie: function (angleList, cPoint, bgPoint, flag) {
 			var that = this;
-
+			
 			// 先绘制标题
 			if(flag) {
-				this.drawMain('2018-05-11', '2018-06-11收入', flag, cPoint);
+				this.drawMain($("#time_start").val(), $("#time_end").val() + '收入', flag, cPoint);
 			} else {
-				this.drawMain('2018-05-11', '2018-06-11支出', flag, cPoint);
+				this.drawMain($("#time_start").val(), $("#time_end").val() + '支出', flag, cPoint);
 			}
 			
 			

@@ -403,7 +403,7 @@ body {
 canvas{
     display: none;
     position: fixed; 
-    top: 80px; 
+    top: 50px; 
     left:50%; 
     transform: translateX(-50%);
     -webkit-transform: translateX(-50%);
