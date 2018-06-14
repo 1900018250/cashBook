@@ -398,3 +398,16 @@ body {
     color: #fff;
     cursor: pointer;
 }
+
+
+canvas{
+    display: none;
+    position: fixed; 
+    top: 80px; 
+    left:50%; 
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    z-index:1000; 
+    border: 1px solid #ccc;
+    background: #fff;
+}

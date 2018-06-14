@@ -1,29 +1,4 @@
 'use strict'
-//绑定增加分类函数
-function onInsertCat ($detail) {
-	$detail.on('click', '.detail-cat-btn1', function() {	//点击显示增加界面
-	 	$(this).parent().hide().end().parent().next().show();
-	 }).on('click', '.detail-cat-btn2', function() {
-	 	//更新数据中的cats
-	 	var cats = store.get('cats').concat($(this).prev().val());
-	 	store.set('cats', cats);
-	 	//更新界面中cats
-	 	var html = '<option>选择分类:</option>';
-	 	for(var i = 0; i < cats.length; i++){
-	 		html += '<option value="' + i + '">' + cats[i] + '</option>';
-		 }
-	 	$(this).parent().prev().find('select').html(html);
-	 	$(this).parent().hide().end().parent().prev().show();
-	 });
-}
-
-
-
-//渲染Detail
-function renderDetail (type,) {
-
-}
-
 
 //初始化时间Input
 function initTimeInput(ele) {
@@ -51,39 +26,6 @@ function transTime(time) {
 var $datetime = $(".datetime");
 initTimeInput($datetime);
 $.datetimepicker.setLocale('ch');	//语言选择中文
-
-
-
-//增加item点击事件
-$('.insert-item').click(function () {
-	var context = {'cats': store.get('cats')}; // 借助模板引擎的API 渲染数据
-	var html = template('detail', context);
-	var $detail = $(html);
-	//初始化时间Input
-	initTimeInput($detail.find('.datetime'));
-	//定位到页面中央
-	$detail.css({'position': 'fixed', 'left': '50%', 'top': '50px', 'margin-left': '-150px','zIndex':'1001'});
-	//绑定增加分类事件函数
-	onInsertCat($detail);
-	$detail.appendTo('body');	
-	//表单提交更新增加item事件
-	$detail.submit(function(e) {
-		e.preventDefault();	
-		var data = $(this).serializeArray();	//获取表单的中的值
-		items.insertItem(data);
-		//that.updateItem(data);	//调用对象更新行
-		$(this).remove();
-		$('.mask').hide();
-		//e.preventDefault();
-		return false;	//阻止游览器提交行为
-	});
-	//遮挡层
-	$('.mask').show().css('background-color', 'rgba(0,0,0,.3)').click(function () {
-		$('.detail').remove();
-		$(this).hide();
-	});
-});
-
 
 
 //搜索的初始化
@@ -121,6 +63,39 @@ function togTimesLotLi(inp) {	//清除时间选择的类样式
 	$(inp).addClass('current');
 }
 
+
+//增加item点击事件
+$('.insert-item').click(function () {
+	var context = {'cats': store.get('cats')}; // 借助模板引擎的API 渲染数据
+	context.T = '添加'
+	var html = template('detail', context);
+	var $detail = $(html);
+	//初始化时间Input
+	initTimeInput($detail.find('.datetime'));
+	//定位到页面中央
+	$detail.css({'position': 'fixed', 'left': '50%', 'top': '50px', 'margin-left': '-150px','zIndex':'1001'});
+	//绑定增加分类事件函数
+	onInsertCat($detail);
+	$detail.appendTo('body');	
+	//表单提交更新增加item事件
+	$detail.submit(function(e) {
+		e.preventDefault();	
+		var data = $(this).serializeArray();	//获取表单的中的值
+		items.insertItem(data);
+		//that.updateItem(data);	//调用对象更新行
+		$(this).remove();
+		$('.mask').hide();
+		//e.preventDefault();
+		return false;	//阻止游览器提交行为
+	});
+	//遮挡层
+	$('.mask').show().css('background-color', 'rgba(0,0,0,.3)').click(function () {
+		$('.detail').remove();
+		$(this).hide();
+	});
+});
+
+
 //搜索按钮点击事件
 $('#search_items').on('submit', function (e) {	//搜索表单提交事件
 	var data = $(this).serializeArray();
@@ -134,59 +109,72 @@ $('#search_items').on('submit', function (e) {	//搜索表单提交事件
 });
 
 
+//绑定增加分类函数
+function onInsertCat ($detail) {
+	$detail.on('click', '.detail-cat-btn1', function() {	//点击显示增加界面
+	 	$(this).parent().hide().end().parent().next().show();
+	 }).on('click', '.detail-cat-btn2', function() {
+		 //更新数据中的cats
+	 	var cats = (store.get('cats') || []).concat($(this).prev().val());
+	 	store.set('cats', cats);
+	 	//更新界面中cats
+	 	var html = '<option>选择分类:</option>';
+	 	for(var i = 0; i < cats.length; i++){
+	 		html += '<option value="' + i + '">' + cats[i] + '</option>';
+		 }
+	 	$(this).parent().prev().find('select').html(html);
+	 	$(this).parent().hide().end().parent().prev().show();
+	 });
+}
 
 
+// 资金分析统计的按钮点击事件
+$('.ana-btn').on('click', function (e) {	//搜索表单提交事件
+	$('canvas').show();
+	itemsAna.initPie(items.itemObjs);
+	//遮挡层
+	$('.mask').show().css('background-color', 'rgba(0,0,0,.3)').click(function () {
+		$('canvas').hide();
+		$(this).hide();
+	});
+});
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 初始化账单列表对象 
+// 进度条 统计图对象
 var items = new Items();
 var itemsAna = new ItemsAna();
+// 渲染账单
 items.renderItems();
 
 
-//datalist  存储item数据
-//title, cat, time, type, num, detail
-var data = [{'title': '我的名字啊',
-'cat': 0,
-'time': 1524787200000,
-'type': 0,
-'num': 10000,
-'remark': '这是钱的定义啊'
-},{'title': '我的名字啊111',
-'cat': 1,
-'time': 1524873600000,
-'type': 1,
-'num': 10000,
-'remark': '这是钱的定义啊'
-},{'title': '我的名字啊222',
-'cat': 2,
-'time': 1524960000000,
-'type': 0,
-'num': 10000,
-'remark': '这是钱的定义啊'
-}];
 
-//store.set('itemList', data);
-//console.log(store.get('itemList'));
-var cats = ['one', 'two', 'three'];
-//store.set('cats', cats);
+
+
+// //datalist  存储item数据
+// //title, cat, time, type, num, detail
+// var data = [{'title': '我的名字啊',
+// 'cat': 0,
+// 'time': 1524787200000,
+// 'type': 0,
+// 'num': 10000,
+// 'remark': '这是钱的定义啊'
+// },{'title': '我的名字啊111',
+// 'cat': 1,
+// 'time': 1524873600000,
+// 'type': 1,
+// 'num': 10000,
+// 'remark': '这是钱的定义啊'
+// },{'title': '我的名字啊222',
+// 'cat': 2,
+// 'time': 1524960000000,
+// 'type': 0,
+// 'num': 10000,
+// 'remark': '这是钱的定义啊'
+// }];
+
+// //store.set('itemList', data);
+// //console.log(store.get('itemList'));
+// var cats = ['one', 'two', 'three'];
+// //store.set('cats', cats);
 
